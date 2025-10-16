@@ -1,11 +1,20 @@
-import numpy as np
+from GetBytes import *
 import matplotlib.pyplot as plt
 
 
-def gen_bites(N_bits):
-    return np.random.randint(0, 2, size=(N_bits))
+
 
 def make_disturbance(N_bits):
     pass # NULL
 
-print(gen_bites(2))
+
+
+def main():
+
+    bites = gen_bites(5)
+
+
+
+
+if __name__ == "__main__":
+    main()
