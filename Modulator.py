@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.signal.windows import cosine
+from scipy.special import pbdn_seq
 
 from GetBytes import *
 import main
@@ -9,6 +10,9 @@ import main
 #angular_velocity = 20 # anguar in  rad
 
 ### constant variables - end
+
+def test():
+    print(qpsk_modulation(gen_bites(10)))
 
 def bpsk_modulation(bits):
     symbols = 1-2 * bits # [1-2 * bits for bits in bites_]
@@ -20,7 +24,30 @@ def bpsk_modulation(bits):
     #s2 = -s1
 
     #return
+def qpsk_modulation(bits):
+    if len(bits)%2 != 0:
+        raise ValueError("Number of bits must be even")
 
-#x = gen_bites(10)
-#print(x)
-#print(bpsk_modulation(x))
+
+    bits_pair= bits.reshape(-1,2)
+    print(bits_pair)
+
+    norm = 1 / np.sqrt(2)
+
+    qpsk_map ={
+        (0,0): norm * (1+1j),
+        (0,1): norm * (-1+1j),
+        (1,1): norm * (-1-1j),
+        (1,0): norm * (1-1j),
+    }
+
+    symbols = np.array([qpsk_map[tuple(pair)] for pair in bits_pair], dtype=complex)
+
+
+    return symbols
+
+
+if __name__ == "__main__":
+    test()
+
+

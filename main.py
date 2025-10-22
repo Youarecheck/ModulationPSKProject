@@ -4,6 +4,7 @@ from Modulator import *
 from Demodulator import *
 from AddAWGNNoise import *
 import matplotlib.pyplot as plt
+from TransmissionChannel import *
 
 
 
@@ -19,13 +20,17 @@ def calculate_ber(original_bits, decoded_bits):
 
 def main():
 
-    bites = gen_bites(614)
-    #print(bites)
-    my_array = bpsk_demodulation(add_awgn_noise(bpsk_modulation(bites),0.5))
-    ##print(bites == my_array)
-    print(calculate_ber(bites, my_array))
-    plt.plot(bites, my_array)
-    plt.show()
+    bites = gen_bites(10)
+    print("orginal Bites: ")
+    print(bites)
+    demodulated_bites = bpsk_demodulation(add_awgn_noise(bpsk_modulation(bites),0.5))
+    print("demodulated Bites: ")
+    print(demodulated_bites)
+    print("Bit Error Rate: ")
+   # print(bites == demodulated_bites)
+    print(calculate_ber(bites, demodulated_bites))
+    #plt.plot(bites, demodulated_bites)
+    #plt.show()
 
 
 
