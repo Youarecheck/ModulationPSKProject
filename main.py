@@ -10,6 +10,11 @@ import matplotlib.pyplot as plt
 def make_disturbance(N_bits):
     pass # NULL
 
+def calculate_ber(original_bits, decoded_bits):
+    """Calculate Bit Error Rate."""
+    errors = np.sum(original_bits != decoded_bits)
+    ber = errors / len(original_bits)
+    return ber
 
 
 def main():
