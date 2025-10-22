@@ -21,6 +21,6 @@ def bpsk_modulation(bits):
 
     #return
 
-x = gen_bites(10)
-print(x)
-print(bpsk_modulation(x))
+#x = gen_bites(10)
+#print(x)
+#print(bpsk_modulation(x))
