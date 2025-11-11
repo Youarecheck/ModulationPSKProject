@@ -30,7 +30,7 @@ def qpsk_modulation(bits):
 
 
     bits_pair= bits.reshape(-1,2)
-    print(bits_pair)
+  #  print(bits_pair)
 
     norm = 1 / np.sqrt(2)
 
