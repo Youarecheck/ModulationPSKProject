@@ -35,8 +35,8 @@ def simulate_bpsk(eb_n0_range, n_bits=100000):
     print("-" * 60)
 
     for eb_n0_db in eb_n0_range:
-       # bits =gen_bites(n_bits) ORGINAL VERSION FOR RANDOM BITES
-        bits = np.array([1, 0, 1, 1, 0, 0, 1, 0, 1, 0])
+        bits =gen_bites(n_bits) #ORGINAL VERSION FOR RANDOM BITES
+
 
 
         symbols = bpsk_modulation(bits)
@@ -48,7 +48,7 @@ def simulate_bpsk(eb_n0_range, n_bits=100000):
     return ber_Values
 
 
-def simulate_qpsk(eb_n0_range, n_bits=10000):
+def simulate_qpsk(eb_n0_range, n_bits=10):
     """Simulate QPSK transmission."""
     ber_values = []
 
@@ -60,8 +60,9 @@ def simulate_qpsk(eb_n0_range, n_bits=10000):
     print("-" * 60)
 
     for eb_n0_db in eb_n0_range:
-        #bits = gen_bites(n_bits) ORGINAL VERSION FOR RANDOM BITES
-        bits = np.array([1, 0, 1, 1, 0, 0, 1, 0, 1, 0])
+        bits = gen_bites(n_bits) #ORGINAL VERSION FOR RANDOM BITES
+
+        print("bits:", bits)
         symbols = qpsk_modulation(bits)
         received_symbols = transmission_channel(symbols, eb_n0_db)
         decoded_bits = qpsk_demodulation(received_symbols)
@@ -88,7 +89,7 @@ def main():
 
 ##simulation parameters
     eb_n0_range = range(-2, 16)  # -2 dB to 15 dB
-    n_bits = 11
+    n_bits = 10
 
     print("Simulation Parameters:")
     print(f"  - Modulations: BPSK, QPSK")

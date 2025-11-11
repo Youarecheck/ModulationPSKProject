@@ -19,6 +19,8 @@ def bpsk_modulation(bits):
 
     ### bits:            [1 , 1, 0, 1 ...] W
     ### bpsk_modulation: [-1,  -1, 1, ...] W
+
+
     return symbols.astype(complex)
     #s1 = Amplitude * cosine(angular_velocity * time)
     #s2 = -s1
@@ -42,6 +44,7 @@ def qpsk_modulation(bits):
     }
 
     symbols = np.array([qpsk_map[tuple(pair)] for pair in bits_pair], dtype=complex)
+
 
 
     return symbols
