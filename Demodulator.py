@@ -35,7 +35,6 @@ def qpsk_demodulation(received_symbols):
 if __name__ =="__main__":
       # Test all demodulators
     from Modulator import bpsk_modulation, qpsk_modulation
-    from GetBytes import gen_bites
     from TransmissionChannel import transmission_channel
 
     print("=" * 60)
