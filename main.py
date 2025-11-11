@@ -45,6 +45,29 @@ def simulate_bpsk(eb_n0_range, n_bits=100000):
         print(f"Eb/N0 = {eb_n0_db:2d} dB  =>  BER = {ber:.6f}")
     return ber_Values
 
+
+def simulate_qpsk(eb_n0_range, n_bits=10000):
+    """Simulate QPSK transmission."""
+    ber_values = []
+
+    # Ensure even number of bits
+    if n_bits % 2 != 0:
+        n_bits += 1
+
+    print("QPSK Simulation:")
+    print("-" * 60)
+
+    for eb_n0_db in eb_n0_range:
+        bits = gen_bites(n_bits)
+        symbols = qpsk_modulation(bits)
+        received_symbols = transmission_channel(symbols, eb_n0_db)
+        decoded_bits = qpsk_demodulation(received_symbols)
+        ber = calculate_ber(bits, decoded_bits)
+        ber_values.append(ber)
+        print(f"Eb/N0 = {eb_n0_db:2d} dB  =>  BER = {ber:.6f}")
+
+    return ber_values
+
 def main():
 
     ## bits = gen_bites(10)
@@ -62,7 +85,7 @@ def main():
 
 ##simulation parameters
     eb_n0_range = range(-2, 16)  # -2 dB to 15 dB
-    n_bits = 10000
+    n_bits = 10
 
     print("Simulation Parameters:")
     print(f"  - Modulations: BPSK, QPSK")
@@ -80,6 +103,10 @@ def main():
 
     print("[1/4] BPSK")
     ber_bpsk = simulate_bpsk(eb_n0_range, n_bits)
+    print()
+
+    print("[2/4] QPSK")
+    ber_qpsk = simulate_qpsk(eb_n0_range, n_bits)
     print()
 
 
