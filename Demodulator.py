@@ -48,7 +48,7 @@ if __name__ =="__main__":
     # Test 1: BPSK
     print("\n1. BPSK Demodulation")
     print("-" * 60)
-    bpsk_bits = np.array([1, 0, 1, 1, 0, 0, 1, 0, 1, 0,1, 0, 1, 1, 0, 0, 1, 0, 1, 0])
+    bpsk_bits = np.array([1, 0, 1, 1, 0, 0, 1, 0, 1, 0])
     bpsk_symbols = bpsk_modulation(bpsk_bits)
     bpsk_received = transmission_channel(bpsk_symbols, eb_n0_db)
     bpsk_decoded = bpsk_demodulation(bpsk_received)
@@ -59,7 +59,7 @@ if __name__ =="__main__":
     # Test 2: QPSK
     print("\n2. QPSK Demodulation")
     print("-" * 60)
-    qpsk_bits = np.array([1, 0, 1, 1, 0, 0, 1, 0, 1, 0,1, 0, 1, 1, 0, 0, 1, 0, 1, 0])
+    qpsk_bits = np.array([1, 0, 1, 1, 0, 0, 1, 0, 1, 0])
     qpsk_symbols = qpsk_modulation(qpsk_bits)
     qpsk_received = transmission_channel(qpsk_symbols, eb_n0_db)
     qpsk_decoded = qpsk_demodulation(qpsk_received)
