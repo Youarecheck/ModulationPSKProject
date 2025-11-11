@@ -48,7 +48,7 @@ def simulate_bpsk(eb_n0_range, n_bits=100000):
     return ber_Values
 
 
-def simulate_qpsk(eb_n0_range, n_bits=10):
+def simulate_qpsk(eb_n0_range, n_bits=100000):
     """Simulate QPSK transmission."""
     ber_values = []
 
@@ -89,7 +89,7 @@ def main():
 
 ##simulation parameters
     eb_n0_range = range(-2, 16)  # -2 dB to 15 dB
-    n_bits = 10
+    n_bits = 10000
 
     print("Simulation Parameters:")
     print(f"  - Modulations: BPSK, QPSK")
