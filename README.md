@@ -51,27 +51,24 @@ W tej analizie, obliczamy wektor szumu $n$ na podstawie danych programu, używaj
 
 $$n = r - s$$
 
-### 1.4. Demodulator (Reguły Decyzyjne)
+## 1.4. Demodulator (Reguły Decyzyjne) ✅
 
-* **BPSK:** Decyzja podejmowana jest na podstawie znaku części rzeczywistej.
+Reguły decyzyjne określają, po której stronie granicy (oś $I$ lub $Q$) wylądował symbol, co determinuje odzyskaną wartość bitu.
 
-    $$
-    \hat{b} = \begin{cases} 0 & \text{jeśli } \text{Re}(r) > 0 \\ 1 & \text{jeśli } \text{Re}(r) < 0 \end{cases}
-    $$
+### A. BPSK (Decyzja oparta na osi rzeczywistej)
+* **Jeśli $\text{Re}(r) > 0$** (Pozytywna strona osi $I$) $\to$ Bit $\hat{b} = 0$.
+* **Jeśli $\text{Re}(r) < 0$** (Negatywna strona osi $I$) $\to$ Bit $\hat{b} = 1$.
 
-* **QPSK:** Dwa bity są odzyskiwane niezależnie na podstawie znaków części $I$ oraz $Q$.
+### B. QPSK (Dwa Bity Niezależnie)
+#### Bit $\hat{b}_1$ (Oś Urojona / $Q$):
+* **Jeśli $\text{Im}(r) > 0$** (Pozytywna strona osi $Q$) $\to$ Bit $\hat{b}_1 = 0$.
+* **Jeśli $\text{Im}(r) < 0$** (Negatywna strona osi $Q$) $\to$ Bit $\hat{b}_1 = 1$.
 
-    Dla bitu $\hat{b}_1$ (oś urojona):
-    $$
-    \hat{b}_1 = \begin{cases} 0 & \text{jeśli } \text{Im}(r) > 0 \\ 1 & \text{jeśli } \text{Im}(r) < 0 \end{cases}
-    $$
+#### Bit $\hat{b}_2$ (Oś Rzeczywista / $I$):
+* **Jeśli $\text{Re}(r) > 0$** (Pozytywna strona osi $I$) $\to$ Bit $\hat{b}_2 = 0$.
+* **Jeśli $\text{Re}(r) < 0$** (Negatywna strona osi $I$) $\to$ Bit $\hat{b}_2 = 1$.
 
-    Dla bitu $\hat{b}_2$ (oś rzeczywista):
-    $$
-    \hat{b}_2 = \begin{cases} 0 & \text{jeśli } \text{Re}(r) > 0 \\ 1 & \text{jeśli } \text{Re}(r) < 0 \end{cases}
-    $$
-
----
+***
 
 ## 2. Analiza Krok po Kroku (Przykładowe Obliczenia)
 
