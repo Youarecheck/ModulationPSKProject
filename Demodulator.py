@@ -42,7 +42,7 @@ if __name__ =="__main__":
     print("=" * 60)
 
     # Test parameters
-    eb_n0_db = 10  # Good channel
+    eb_n0_db = 5
 
     # Test 1: BPSK
     print("\n1. BPSK Demodulation")
