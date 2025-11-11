@@ -192,6 +192,17 @@ Poniższe tabele podsumowują zgodność modelu matematycznego z wynikami progra
 
 ---
 
+
+### Tabela 3.3: Porównanie Całego Strumienia Bitów (10 Bitów)
+
+| Modulacja | Bity Nadane (Wejście Modelu) | Bity Otrzymane (Wyjście Programu) | Liczba Błędów | BER | Weryfikacja |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **BPSK** | `[1 0 1 1 0 0 1 0 1 0]` | `[1 0 1 1 0 0 1 0 1 0]` | 0 / 10 | 0.0000 | **ZGODNOŚĆ** |
+| **QPSK** | `[1 0 1 1 0 0 1 0 1 0]` | `[1 0 1 1 0 0 1 0 1 0]` | 0 / 10 | 0.0000 | **ZGODNOŚĆ** |
+
+***
+
+
 ## 4. Wnioski z Analizy
 
 1.  **Pełna Zgodność Modelu:** Analiza matematyczna krok po kroku wykazuje, że operacje wykonywane przez program (modulacja, demodulacja) są w **100% zgodne z teoretycznymi wzorami matematycznymi** dla BPSK i QPSK (z mapowaniem Graya).
