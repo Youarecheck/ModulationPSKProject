@@ -35,7 +35,7 @@ Zasady mapowania (zgodne z danymi):
 * `Im(s)` (oś $Q$): $b_1 = 0 \to +1/\sqrt{2}$; $b_1 = 1 \to -1/\sqrt{2}$
 * `Re(s)` (oś $I$): $b_2 = 0 \to +1/\sqrt{2}$; $b_2 = 1 \to -1/\sqrt{2}$
 
-Stąd:
+Stąd (dla pary bitów `(b1, b2)`):
 * `(0, 0)` $\to$ `(1+1j) / sqrt(2)`
 * `(0, 1)` $\to$ `(-1+1j) / sqrt(2)`
 * `(1, 1)` $\to$ `(-1-1j) / sqrt(2)`
@@ -47,18 +47,29 @@ Model kanału jest addytywny. Odbierany symbol ($r$) jest sumą nadanego symbolu
 $$r = s + n$$
 $$n = n_I + j \cdot n_Q$$
 
-Gdzie $n_I$ i $n_Q$ to niezależne zmienne losowe o rozkładzie normalnym $\mathcal{N}(0, \sigma^2)$. W tej analizie, **obliczymy wektor szumu $n$ na podstawie danych programu**, używając przekształconego wzoru:
+W tej analizie, obliczamy wektor szumu $n$ na podstawie danych programu, używając przekształconego wzoru:
 
 $$n = r - s$$
 
 ### 1.4. Demodulator (Reguły Decyzyjne)
 
 * **BPSK:** Decyzja podejmowana jest na podstawie znaku części rzeczywistej.
-    $$\hat{b} = \begin{cases} 0 & \text{jeśli } \text{Re}(r) > 0 \\ 1 & \text{jeśli } \text{Re}(r) < 0 \end{cases}$$
+
+    $$
+    \hat{b} = \begin{cases} 0 & \text{jeśli } \text{Re}(r) > 0 \\ 1 & \text{jeśli } \text{Re}(r) < 0 \end{cases}
+    $$
 
 * **QPSK:** Dwa bity są odzyskiwane niezależnie na podstawie znaków części $I$ oraz $Q$.
-    $$\hat{b}_1 = \begin{cases} 0 & \text{jeśli } \text{Im}(r) > 0 \\ 1 & \text{jeśli } \text{Im}(r) < 0 \end{cases}$$
-    $$\hat{b}_2 = \begin{cases} 0 & \text{jeśli } \text{Re}(r) > 0 \\ 1 & \text{jeśli } \text{Re}(r) < 0 \end{cases}$$
+
+    Dla bitu $\hat{b}_1$ (oś urojona):
+    $$
+    \hat{b}_1 = \begin{cases} 0 & \text{jeśli } \text{Im}(r) > 0 \\ 1 & \text{jeśli } \text{Im}(r) < 0 \end{cases}
+    $$
+
+    Dla bitu $\hat{b}_2$ (oś rzeczywista):
+    $$
+    \hat{b}_2 = \begin{cases} 0 & \text{jeśli } \text{Re}(r) > 0 \\ 1 & \text{jeśli } \text{Re}(r) < 0 \end{cases}
+    $$
 
 ---
 
@@ -164,7 +175,7 @@ Poniższe tabele podsumowują zgodność modelu matematycznego z wynikami progra
 | Demodulacja | $\text{Re}(-0.875) < 0 \implies \hat{b}=1$ | `Decoded bits[2] = 1` | Zgodne |
 | **Bit 4** | `1` | `1` | Zgodne |
 | Modulacja | $s = (1-2 \cdot 1) = -1.0$ | `bpsk_symbols[3] = -1.0` | Zgodne |
-| Odbiór | $r_4 = s_4 + n_4$ | `bpsk_received[3] = -1.726...`| (Dane wejściowe) |
+| Odbiór | $r_4 = s_4 + n_4$ | `bpsk_received[4] = -1.726...`| (Dane wejściowe) |
 | Demodulacja | $\text{Re}(-1.726) < 0 \implies \hat{b}=1$ | `Decoded bits[3] = 1` | Zgodne |
 
 ### Tabela 3.2: Modulacja QPSK
