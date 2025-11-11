@@ -52,26 +52,6 @@ W tej analizie, obliczamy wektor szumu $n$ na podstawie danych programu, używaj
 $$n = r - s$$
 
 
-### 1.4. Demodulator (Reguły Decyzyjne) ✅
-
-#### A. Demodulacja BPSK
-Decyzja o wartości bitu ($\hat{b}$) jest podejmowana na podstawie znaku **części rzeczywistej** symbolu `r`:
-
-* **Jeśli $\text{Re}(r) > 0$** $\to$ zdekodowany bit $\hat{b} = 0$.
-* **Jeśli $\text{Re}(r) < 0$** $\to$ zdekodowany bit $\hat{b} = 1$.
-
-#### B. Demodulacja QPSK
-Odzyskuje dwa bity ($\hat{b}_1$ i $\hat{b}_2$) niezależnie.
-
-**Bit $\hat{b}_1$ (Oś Urojona / $Q$):**
-* **Jeśli $\text{Im}(r) > 0$** $\to$ zdekodowany bit $\hat{b}_1 = 0$.
-* **Jeśli $\text{Im}(r) < 0$** $\to$ zdekodowany bit $\hat{b}_1 = 1$.
-
-**Bit $\hat{b}_2$ (Oś Rzeczywista / $I$):**
-* **Jeśli $\text{Re}(r) > 0$** $\to$ zdekodowany bit $\hat{b}_2 = 0$.
-* **Jeśli $\text{Re}(r) < 0$** $\to$ zdekodowany bit $\hat{b}_2 = 1$.
-
-***
 
 ## 1.4. Demodulator (Reguły Decyzyjne) ✅
 
