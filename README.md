@@ -1,4 +1,67 @@
 # Dokumentacja Analityczna Symulacji NIDUC
+
+
+# 📋 Założenia Projektowe - Projekt NIDUC
+
+## 1. Cel Główny i Zakres Projektu
+
+Celem projektu jest stworzenie symulatora cyfrowej komunikacji w Pythonie, który umożliwi **porównawczą analizę niezawodności** dwóch schematów modulacji: **QPSK** (Quadrature Phase Shift Keying) oraz **8PSK** (8-ary Phase Shift Keying).
+
+Analiza ma skupić się na badaniu zależności **Bit Error Rate (BER)** od stosunku energii bitu do gęstości widmowej mocy szumu (**$E_b/N_0$**).
+
+## 2. Wymagania Funkcjonalne (Moduły Symulatora)
+
+System musi być zaimplementowany w architekturze modułowej, z jasno zdefiniowanymi funkcjami dla każdego etapu transmisji:
+
+### 2.1. Modulacja (Modulator)
+* Implementacja mapowania bitów na symbole dla:
+    * **QPSK** (2 bity/symbol, 4 stany) – Zastosowanie mapowania Graya.
+    * **8PSK** (3 bity/symbol, 8 stanów) – Zastosowanie mapowania Graya.
+* Zapewnienie normalizacji mocy symboli ($E_s$) do wartości jednostkowej, co jest krytyczne dla poprawnego obliczenia $E_b/N_0$.
+
+### 2.2. Kanał Transmisyjny (Channel)
+* Wdrożenie modelu **kanału AWGN (Additive White Gaussian Noise)**.
+* Poprawne skalowanie mocy szumu ($N_0$) na podstawie wartości **$E_b/N_0$** zgodnie z zależnością $E_s = k \cdot E_b$ (gdzie $k$ to liczba bitów na symbol).
+
+### 2.3. Demodulacja i Dekodowanie (Demodulator)
+* Zaimplementowanie optymalnego **demodulatora koherentnego** opartego na detekcji najbliższej odległości (Maximum Likelihood Detection) dla obu modulacji (QPSK i 8PSK).
+* Poprawne odzyskanie strumienia bitów z odebranych symboli.
+
+### 2.4. Metryki (Metrics)
+* Implementacja funkcji obliczającej **BER** jako stosunek liczby błędnych bitów do całkowitej liczby przesłanych bitów.
+
+## 3. Wymagania Niefunkcjonalne i Techniczne
+
+| Aspekt | Wymaganie / Technologia | Uzasadnienie |
+| :--- | :--- | :--- |
+| **Język Programowania** | Python 3.x | Zgodność z wytycznymi projektu i literaturą `Viswanathan2019...`. |
+| **Biblioteki** | NumPy, Matplotlib, SciPy | NumPy zapewnia wydajność (wektoryzacja) niezbędną dla szybkich symulacji BER. Matplotlib do generowania wykresów. |
+| **Architektura** | Modułowa | Łatwość testowania, utrzymania i diagnostyki kodu. Proponowany podział: `modulator.py`, `channel.py`, `demodulator.py`, `diagnostics.py`, `main_simulator.py`. |
+| **Wydajność** | Wektoryzacja | Cały kod musi wykorzystywać operacje na wektorach NumPy, aby zminimalizować czas symulacji, zwłaszcza dla niskich wartości BER (wymagających bilionów bitów). |
+
+## 4. Zakres Diagnostyki Systemu
+
+W celu zwiększenia niezawodności i możliwości oceny stanu kanału, system musi zawierać proste mechanizmy diagnostyczne:
+
+1.  **Monitorowanie Mocy Sygnału:** Funkcja obliczająca średnią moc odebranego sygnału. Spadek poniżej progu (np. 50% oczekiwanej mocy) musi generować alarm.
+2.  **Wykrywanie Utraty Synchronizacji (Uproszczone):** Wysłanie znanej sekwencji bitów (preambuły) na początku. Jeśli BER dla samej preambuły przekroczy ustalony próg (np. 20%), system zgłasza błąd synchronizacji lub krytycznie zły stan kanału.
+
+## 5. Dane Wyjściowe i Oczekiwane Rezultaty
+
+Kluczowym rezultatem projektu jest następujący wykres i towarzysząca mu analiza:
+
+* **Wykres BER vs $E_b/N_0$:** Jednolity wykres porównujący:
+    1.  Teoretyczną krzywą BER dla QPSK.
+    2.  Zsymulowaną krzywą BER dla QPSK.
+    3.  Teoretyczną krzywą BER dla 8PSK.
+    4.  Zsymulowaną krzywą BER dla 8PSK.
+* **Analiza:** Pisemne wnioski dotyczące przesunięcia krzywych i kompromisu między niezawodnością (QPSK) a efektywnością widmową (8PSK).
+
+### Oczekiwane Założenie Teoretyczne
+Na wykresie należy oczekiwać, że:
+* Krzywa **QPSK** będzie położona **bardziej na lewo** niż 8PSK (wymaga mniejszego $E_b/N_0$ dla tej samej niezawodności).
+* Krzywa **8PSK** będzie położona **bardziej na prawo** (wymaga większego $E_b/N_0$ z uwagi na gęstszą konstelację symboli).
+
 ## Analiza Krok po Kroku: BPSK vs QPSK
 
 Niniejszy dokument stanowi szczegółową analizę matematyczną pojedynczego przebiegu symulacji, porównując wyniki z programu z modelem teoretycznym.
