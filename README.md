@@ -267,6 +267,37 @@ Poniższe tabele podsumowują zgodność modelu matematycznego z wynikami progra
 
 ***
 
+## 3.4 Szczegółowa Weryfikacja Działania (Model Matematyczny vs. Program)
+
+Poniższe tabele weryfikują, że **Model Matematyczny (Teoretyczna Decyzja)** jest identyczny z **Wynikiem Programu**.
+
+### 3.5. Weryfikacja Modulacji BPSK (10 Bitów)
+
+| Bit (i) | Bit Nadany ($b_i$) | Symbol Nadany ($s_i$) | Symbol Odebrany ($r_i$) | $\text{Re}(r)$ | **Decyzja Mat. ($\hat{b}_i$)** | **Wynik Programu** |
+| :---: | :---: | :---: | :--- | :---: | :---: | :---: |
+| 1 | **1** | -1.0 + 0j | -1.247... - 0.419...j | -1.247 | **1** ($\text{Re}<0$) | 1 |
+| 2 | **0** | 1.0 + 0j | 1.296... - 0.447...j | +1.296 | **0** ($\text{Re}>0$) | 0 |
+| 3 | **1** | -1.0 + 0j | -0.875... + 0.491...j | -0.875 | **1** ($\text{Re}<0$) | 1 |
+| 4 | **1** | -1.0 + 0j | -1.726... - 0.287...j | -1.726 | **1** ($\text{Re}<0$) | 1 |
+| 5 | **0** | 1.0 + 0j | 0.563... - 0.436...j | +0.563 | **0** ($\text{Re}>0$) | 0 |
+| 6 | **0** | 1.0 + 0j | 1.092... - 0.889...j | +1.092 | **0** ($\text{Re}>0$) | 0 |
+| 7 | **1** | -1.0 + 0j | -1.513... - 0.449...j | -1.513 | **1** ($\text{Re}<0$) | 1 |
+| 8 | **0** | 1.0 + 0j | 0.636... + 0.003...j | +0.636 | **0** ($\text{Re}>0$) | 0 |
+| 9 | **1** | -1.0 + 0j | -0.882... - 0.242...j | -0.882 | **1** ($\text{Re}<0$) | 1 |
+| 10 | **0** | 1.0 + 0j | 0.378... - 0.258...j | +0.378 | **0** ($\text{Re}>0$) | 0 |
+
+### 3.6. Weryfikacja Modulacji QPSK (5 Symboli / 10 Bitów)
+
+| Symbol (i) | Bity Nadane ($b_1, b_2$) | Symbol Nadany ($s_i$) | Symbol Odebrany ($r_i$) | $\text{Im}(r)$ ($\hat{b}_1$) | $\text{Re}(r)$ ($\hat{b}_2$) | **Decyzja Mat. ($\hat{b}_1, \hat{b}_2$)** | **Wynik Programu** |
+| :---: | :---: | :---: | :--- | :---: | :---: | :---: | :---: |
+| 1 | **1, 0** | 0.707-0.707j | 0.693... - 1.726...j | -1.726 ($\mathbf{1}$) | +0.693 ($\mathbf{0}$) | **1, 0** | 1, 0 |
+| 2 | **1, 1** | -0.707-0.707j | -1.641... - 1.382...j | -1.382 ($\mathbf{1}$) | -1.641 ($\mathbf{1}$) | **1, 1** | 1, 1 |
+| 3 | **0, 0** | 0.707+0.707j | 0.829... + 0.946...j | +0.946 ($\mathbf{0}$) | +0.829 ($\mathbf{0}$) | **0, 0** | 0, 0 |
+| 4 | **1, 0** | 0.707-0.707j | 1.270... - 0.506...j | -0.506 ($\mathbf{1}$) | +1.270 ($\mathbf{0}$) | **1, 0** | 1, 0 |
+| 5 | **1, 0** | 0.707-0.707j | 0.735... - 1.159...j | -1.159 ($\mathbf{1}$) | +0.735 ($\mathbf{0}$) | **1, 0** | 1, 0 |
+
+***
+
 
 ## 4. Wnioski z Analizy
 
