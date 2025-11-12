@@ -214,6 +214,54 @@ Poniżej prześledzimy pierwsze dwa etapy (symbole) dla obu modulacji, stosując
 8.  **Wniosek:** Model i program są zgodne.
 
 ---
+## 3. Szczegółowa Weryfikacja Działania (Analiza Krok po Kroku) 🧪
+
+Weryfikujemy, czy proces modulacji, szumienia i demodulacji jest zgodny ze wzorami, używając wartości z pierwszej pary bitów dla każdej modulacji.
+
+### 3.1. Przykład BPSK (Bit 1 i 2)
+
+**A. Analiza Bit 1:**
+* **Bit Wejściowy ($b$):** $1$
+* **1. Modulacja (Wzór):** Podstawienie do $s = (1 - 2b) + 0j$
+    $$s_1 = (1 - 2 \cdot 1) + 0j = -1.0 + 0j$$
+* **2. Transmisja (Dane):** (Symbol odebrany z programu)
+    $$r_1 = -1.247389... - 0.419887...j$$
+* **3. Obliczenie Szumu ($n_1 = r_1 - s_1$):**
+    $$n_1 = (-1.247... - (-1.0)) + j(-0.419... - 0) = -0.247... - 0.419...j$$
+* **4. Demodulacja (Decyzja):**
+    $$\text{Re}(r_1) = -1.247...$$
+    Ponieważ $\text{Re}(r_1) < 0$, z reguły decyzyjnej otrzymujemy $\hat{b}_1 = 1$.
+* **Wniosek:** Wynik Modelu Mat. (1) jest zgodny z Wynikiem Programu (1).
+
+**B. Analiza Bit 2:**
+* **Bit Wejściowy ($b$):** $0$
+* **1. Modulacja (Wzór):** Podstawienie do $s = (1 - 2b) + 0j$
+    $$s_2 = (1 - 2 \cdot 0) + 0j = +1.0 + 0j$$
+* **2. Transmisja (Dane):**
+    $$r_2 = 1.296403... - 0.447464...j$$
+* **3. Obliczenie Szumu ($n_2 = r_2 - s_2$):**
+    $$n_2 = (1.296... - 1.0) + j(-0.447... - 0) = +0.296... - 0.447...j$$
+* **4. Demodulacja (Decyzja):**
+    $$\text{Re}(r_2) = +1.296...$$
+    Ponieważ $\text{Re}(r_2) > 0$, z reguły decyzyjnej otrzymujemy $\hat{b}_2 = 0$.
+* **Wniosek:** Wynik Modelu Mat. (0) jest zgodny z Wynikiem Programu (0).
+
+### 3.2. Przykład QPSK (Symbol 1 / Bity 1 i 2)
+
+**A. Analiza Symbol 1:**
+* **Bity Wejściowe ($b_1, b_2$):** $(1, 0)$
+* **1. Modulacja (Wzór):** Mapowanie dla (1, 0) to $I=1/\sqrt{2}, Q=-1/\sqrt{2}$.
+    $$s_1 = \frac{1}{\sqrt{2}} (1 - 1j) \approx 0.7071... - 0.7071...j$$
+* **2. Transmisja (Dane):**
+    $$r_1 = 0.693170... - 1.726133...j$$
+* **3. Obliczenie Szumu ($n_1 = r_1 - s_1$):**
+    $$n_1 = (0.693... - 0.707...) + j(-1.726... - (-0.707...))$$
+    $$n_1 = -0.0139... - 1.0190...j$$
+* **4. Demodulacja (Decyzja):**
+    * **Bit $\hat{b}_1$ (Im):** $\text{Im}(r_1) = -1.726...$ (Ujemna) $\to \hat{b}_1 = 1$.
+    * **Bit $\hat{b}_2$ (Re):** $\text{Re}(r_1) = +0.693...$ (Dodatnia) $\to \hat{b}_2 = 0$.
+* **Wniosek:** Wynik Modelu Mat. (1, 0) jest zgodny z Wynikiem Programu (1, 0).
+
 
 ## 3. Tabela Porównawcza Wyników
 
