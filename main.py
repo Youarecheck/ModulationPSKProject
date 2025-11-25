@@ -72,6 +72,52 @@ def simulate_qpsk(eb_n0_range, n_bits=100000):
 
     return ber_values
 
+
+def simulate_16qam(eb_n0_range, n_bits=10000):
+
+    ber_values = []
+
+    # Ensure multiple of 4
+    if n_bits % 4 != 0:
+        n_bits = (n_bits // 4) * 4
+
+    print("16-QAM Simulation:")
+    print("-" * 60)
+
+    for eb_n0_db in eb_n0_range:
+        bits = gen_bites(n_bits)
+        symbols = qam16_modulation(bits)
+        received_symbols = transmission_channel(symbols, eb_n0_db)
+        decoded_bits = qam16_demodulation(received_symbols)
+        ber = calculate_ber(bits, decoded_bits)
+        ber_values.append(ber)
+        print(f"Eb/N0 = {eb_n0_db:2d} dB  =>  BER = {ber:.6f}")
+
+    return ber_values
+
+
+def simulate_8psk(eb_n0_range, n_bits=10002):
+
+    ber_values = []
+
+    # Ensure multiple of 3
+    if n_bits % 3 != 0:
+        n_bits = (n_bits // 3) * 3
+
+    print("8-PSK Simulation:")
+    print("-" * 60)
+
+    for eb_n0_db in eb_n0_range:
+        bits = gen_bites(n_bits)
+        symbols = psk8_modulation(bits)
+        received_symbols = transmission_channel(symbols, eb_n0_db)
+        decoded_bits = psk8_demodulation(received_symbols)
+        ber = calculate_ber(bits, decoded_bits)
+        ber_values.append(ber)
+        print(f"Eb/N0 = {eb_n0_db:2d} dB  =>  BER = {ber:.6f}")
+
+    return ber_values
+
 def main():
 
     ## bits = gen_bites(10)
@@ -111,6 +157,19 @@ def main():
 
     print("[2/4] QPSK")
     ber_qpsk = simulate_qpsk(eb_n0_range, n_bits)
+    print()
+
+    print("[3/4] 8-PSK")
+    ber_8psk = simulate_8psk(eb_n0_range, n_bits)
+    print()
+
+    print("[4/4] 16-QAM")
+    ber_16qam = simulate_16qam(eb_n0_range, n_bits)
+    print()
+
+    print("=" * 70)
+    print("Simulations Complete!")
+    print("=" * 70)
     print()
 
 

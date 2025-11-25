@@ -32,6 +32,62 @@ def qpsk_demodulation(received_symbols):
     return bits
 
 
+def psk8_demodulation(received_symbols):
+
+    # 8-PSK constellation with Gray coding
+    angles = np.array([0, 1, 3, 2, 6, 7, 5, 4]) * np.pi / 4
+    constellation = np.exp(1j * angles)
+
+    n_symbols = len(received_symbols)
+    bits = np.zeros(n_symbols * 3, dtype=int)
+
+    # For each received symbol, find closest constellation point
+    for idx, symbol in enumerate(received_symbols):
+        # Calculate distances to all constellation points
+        distances = np.abs(symbol - constellation)
+
+        # Find index of closest point
+        closest_idx = np.argmin(distances)
+
+        # Convert index to 3 bits
+        bit0 = (closest_idx >> 2) & 1
+        bit1 = (closest_idx >> 1) & 1
+        bit2 = closest_idx & 1
+
+        bits[3 * idx:3 * idx + 3] = [bit0, bit1, bit2]
+
+    return bits
+
+
+def qam16_demodulation(received_symbols):
+
+    # Denormalize symbols (reverse the 1/sqrt(10) normalization)
+    norm = np.sqrt(10)
+    denorm_symbols = received_symbols * norm
+
+    n_symbols = len(received_symbols)
+    bits = np.zeros(n_symbols * 4, dtype=int)
+
+    # PAM-4 demodulation mapping (Gray coded)
+    def pam4_demod(value):
+        if value < -2:
+            return [0, 0]  # -3
+        elif value < 0:
+            return [0, 1]  # -1
+        elif value < 2:
+            return [1, 1]  # +1
+        else:
+            return [1, 0]  # +3
+
+    # Demodulate each symbol
+    for idx, symbol in enumerate(denorm_symbols):
+        i_bits = pam4_demod(symbol.real)
+        q_bits = pam4_demod(symbol.imag)
+        bits[4 * idx:4 * idx + 4] = i_bits + q_bits
+
+    return bits
+
+
 if __name__ =="__main__":
       # Test all demodulators
     from Modulator import bpsk_modulation, qpsk_modulation
